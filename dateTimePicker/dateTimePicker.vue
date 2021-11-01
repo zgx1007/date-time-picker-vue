@@ -166,11 +166,11 @@
               <div
                 v-if="startActiveName==='absolute'&&!dateTimeObject['startIsNow']"
                 :class="{ active: dateTimeObject['isActiveRed']}"
-              >{{ dateTimeObject.startTime | absoluteDateformat }}</div>
+              >{{ timeHandle.absoluteDateformat(dateTimeObject.startTime) }}</div>
               <div
                 v-else-if="startActiveName==='relative'&&!dateTimeObject['startIsNow']"
                 :class="{ active: dateTimeObject['isActiveRed']}"
-              >{{ dateTimeObject | startRelativeDateformat }}</div>
+              >{{ timeHandle.startRelativeDateformat(dateTimeObject) }}</div>
               <div
                 v-else-if="dateTimeObject['startIsNow']"
                 :class="{ active: dateTimeObject['isActiveRed']}"
@@ -203,11 +203,11 @@
               <div
                 v-if="endActiveName==='relative'&&!dateTimeObject['endIsNow']"
                 :class="{ active: dateTimeObject['isActiveRed']}"
-              >{{ dateTimeObject | endRelativeDateformat }}</div>
+              >{{ timeHandle.endRelativeDateformat(dateTimeObject) }}</div>
               <div
                 v-else-if="endActiveName==='absolute'&&!dateTimeObject['endIsNow']"
                 :class="{ active: dateTimeObject['isActiveRed']}"
-              >{{ dateTimeObject.endTime | absoluteDateformat }}</div>
+              >{{ timeHandle.absoluteDateformat(dateTimeObject.endTime) }}</div>
               <div
                 v-else-if="dateTimeObject['endIsNow']"
                 :class="{ active: dateTimeObject['isActiveRed']}"
@@ -226,6 +226,8 @@ import { Component, Vue, Watch, PropSync } from 'vue-property-decorator';
 import Calendar from 'vue-calendar-component';
 import DatePopover from '@/components/dateTimePicker/datePopover.vue';
 import DateTimeUnits from '@/components/dateTimePicker/utils';
+import TimeHandle from './timeHandle';
+
 
 interface DateTimeObject {
   startTime: number;
@@ -243,6 +245,7 @@ interface DateTimeObject {
   start: string | number;
   end: string | number;
 }
+  timeHandle = TimeHandle;
 
 @Component({
   components: {
